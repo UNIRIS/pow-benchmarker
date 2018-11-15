@@ -1,6 +1,6 @@
 ## Description
 
-This programs aims to simulate the POW for Uniris if we unique keys between the biometric device.
+This programs aims to simulate the POW for Uniris if we use unique keys between the biometric device.
 What is does:
 
 - Generate X ECDSA keypairs
