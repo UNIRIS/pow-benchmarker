@@ -1,13 +1,13 @@
 ## Description
 
-This programs aims to simulate the POW for Uniris if we use unique keys between the biometric device.
+This programs aims to simulate the Uniris POW.
 What is does:
 
 - Generate X ECDSA keypairs
 - Pick a random keypair
 - Sign a long data
-- Loop over the stored keypairs
-- Find the key which will verify the signature
+- Loop over the generated public keys
+- Find the public key verifying the signature
 
 It's using goroutines for concurrent processing.
 
