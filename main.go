@@ -52,7 +52,7 @@ func main() {
 	wg.Wait()
 
 	elapsedInit := time.Since(startInit)
-	log.Printf("%f seconds to generate %d keys\n", elapsedInit.Seconds(), nbKeys)
+	log.Printf("%f seconds elasped to generate %d keys\n", elapsedInit.Seconds(), nbKeys)
 
 	rand.Seed(time.Now().UnixNano())
 	rnd := rand.Intn(len(keyPairs))
@@ -66,20 +66,25 @@ func main() {
 	r, s, _ := ecdsa.Sign(crand.Reader, pvKey, []byte(data))
 	sig, _ := asn1.Marshal(struct{ R, S *big.Int }{R: r, S: s})
 
-	startPow := time.Now()
-	founded := make(chan bool, 1)
+	var wg2 sync.WaitGroup
+	wg2.Add(len(keyPairs))
+
+	var elapsedPow time.Duration
+	timer := time.Now()
 
 	for _, kp := range keyPairs {
 		go func(key string) {
 			if checkSignature(key, data, hex.EncodeToString(sig)) {
-				founded <- true
+				elapsedPow = time.Since(timer)
 			}
+			wg2.Done()
 		}(kp.Public)
 	}
 
-	<-founded
-	elapsedPow := time.Since(startPow)
-	log.Printf("%f seconds to find the signature", elapsedPow.Seconds())
+	wg2.Wait()
+	elaspedAll := time.Since(timer)
+	log.Printf("%f seconds elasped to find the signature\n", elapsedPow.Seconds())
+	log.Printf("%f seconds elasped to loop over all keys", elaspedAll.Seconds())
 }
 
 func generateKey() keyPair {
