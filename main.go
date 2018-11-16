@@ -56,6 +56,7 @@ func main() {
 
 	rand.Seed(time.Now().UnixNano())
 	rnd := rand.Intn(len(keyPairs))
+	log.Printf("the key used to sig is on the index %d \n", rnd)
 	randomKeyPair := keyPairs[rnd]
 
 	data := "ed399d7e3aada3beef16c23aec0c6746c607e351a820bddde7d9e5541f03b0b3c602dcf8a4c7399b406ec9751f8339e847dd4270e8047e786cd75630f2cc2f4b4e7eeae04376cabe85cb7bf387bbff9f85abf2b47221a4662d66cc463b5f53344d1395b2140ed5a913f3feaf4ef057987caa36814ae4b1a2d76665e2c16d380f1abf366c507670ada37e962358f162c5a5efec2cfb75a446107ce59ceccc8d62acab6c3c672e9afdfd02b743036ec66ba23ed1cd2559a23cb9bf42a6d1d7248b0633c48d8969cc31e495c74d8b72afa4ca29d392c0b077035b34e6efb8f9319365c4ccce5a593fab11ab2ca79e38947dbeb884f9f83a2698a0a07aef70eece"
